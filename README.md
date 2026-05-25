@@ -47,9 +47,9 @@ export JOBAGENT_DB=/path/to/jobagent.db
 - [x] `add_application` — scrape URL, dedupe, store
 - [x] `list_applications` — filter by status, ordered by recency
 - [x] `update_status` — change status, append notes, record event
-- [ ] `find_followups` — week 2
-- [ ] `draft_followup` — week 2
-- [ ] `sync_recruiter_emails` — week 2 (Gmail OAuth)
+- [ ] `find_followups` — TBD
+- [ ] `draft_followup` — TBD
+- [ ] `sync_recruiter_emails` — TBD
 
 ## Tests
 
