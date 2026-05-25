@@ -76,9 +76,9 @@ All tools live under the `jobagent` server. From an agent's perspective:
 | `add_application(url)` | Fetches the page, extracts `<title>` / `<h1>`, guesses the company, inserts with status `interested`. Returns an `AddApplicationResult` (the row plus `deduped: bool` — true if the URL was already tracked). |
 | `list_applications(status?, limit=50)` | Lists tracked applications, most-recently-updated first. Optional status filter. Limit capped at 500. |
 | `update_status(application_id, status, note?)` | Changes status (and optionally appends a note). Records a `status_changed` event in the audit log. Idempotent: a call with the same status and no note is a no-op. |
-| `find_followups()` | _Coming week 2._ Stale `applied` / `oa` / `phone` rows that need a nudge. |
-| `draft_followup(application_id)` | _Coming week 2._ Subject + body draft for a follow-up email. |
-| `sync_recruiter_emails()` | _Coming week 2._ Pulls new Gmail threads under the `jobs` label and links them to applications. |
+| `find_followups()` | _TBD._ Stale `applied` / `oa` / `phone` rows that need a nudge. |
+| `draft_followup(application_id)` | _TBD._ Subject + body draft for a follow-up email. |
+| `sync_recruiter_emails()` | _TBD._ Pulls new Gmail threads under the `jobs` label and links them to applications. |
 
 ### Working with the agent
 
@@ -113,21 +113,6 @@ The schema migrates itself on startup — if you upgraded from an earlier
 version that didn't have the status `CHECK` constraint, `db.init()`
 rebuilds the table in place (rows preserved, transactional).
 
-<<<<<<< HEAD
-- [x] `add_application` — scrape URL, dedupe, store
-- [x] `list_applications` — filter by status, ordered by recency
-- [x] `update_status` — change status, append notes, record event
-- [ ] `find_followups` — TBD
-- [ ] `draft_followup` — TBD
-- [ ] `sync_recruiter_emails` — TBD
-||||||| parent of cda2e81 (Expand README: client configs, tool reference, security notes)
-- [x] `add_application` — scrape URL, dedupe, store
-- [x] `list_applications` — filter by status, ordered by recency
-- [x] `update_status` — change status, append notes, record event
-- [ ] `find_followups` — week 2
-- [ ] `draft_followup` — week 2
-- [ ] `sync_recruiter_emails` — week 2 (Gmail OAuth)
-=======
 ## Security notes
 
 `add_application` fetches an arbitrary user-supplied URL, which is an
@@ -144,7 +129,6 @@ inherent SSRF risk. The server defends against the common attack shapes:
   a private address is blocked at the redirect rather than being
   followed.
 - Blocked attempts are logged at WARNING so you can spot probing.
->>>>>>> cda2e81 (Expand README: client configs, tool reference, security notes)
 
 ## Tests
 
