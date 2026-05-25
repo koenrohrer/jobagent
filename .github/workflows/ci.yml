@@ -18,4 +18,11 @@ jobs:
       - name: Install
         run: uv sync --all-extras --dev
       - name: Run tests
-        run: uv run pytest -q
+        run: uv run pytest -q --cov-report=xml --cov-report=term
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
+          if-no-files-found: warn

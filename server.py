@@ -40,8 +40,11 @@ class Application(BaseModel):
     notes: str | None
     created_at: str
     updated_at: str
+    last_touched_at: str | None = None
+
+
+class AddApplicationResult(Application):
     deduped: bool = Field(
-        default=False,
         description="True if URL was already tracked; existing row was returned.",
     )
 
@@ -65,7 +68,7 @@ class GmailSyncResult(BaseModel):
 
 
 @mcp.tool()
-def add_application(url: str) -> Application:
+def add_application(url: str) -> AddApplicationResult:
     """Add a job application by URL.
 
     Fetches the page, extracts the <title> tag, guesses the company
@@ -76,7 +79,7 @@ def add_application(url: str) -> Application:
     Args:
         url: Full http(s) URL of the job posting.
     """
-    return Application(**applications.add(url))
+    return AddApplicationResult(**applications.add(url))
 
 
 @mcp.tool()
